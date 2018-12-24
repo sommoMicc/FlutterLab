@@ -1,0 +1,28 @@
+import './question.dart';
+
+class Quiz {
+  List<Question> _questions;
+  int _currentQuestionIndex = -1;
+  int _score = 0;
+
+  Quiz(this._questions) {
+    _questions.shuffle();
+  }
+
+  List<Question> get questions => _questions;
+  int get score => score;
+  int get length => questions.length;
+  int get questionNumber => _currentQuestionIndex + 1;
+
+  Question get nextQuestion {
+    _currentQuestionIndex++;
+    if(_currentQuestionIndex >= this.length)
+      return null;
+    else
+      return questions[_currentQuestionIndex];
+  }
+
+  void answer(bool isCorrect) {
+    if(isCorrect) _score++;
+  }
+}
