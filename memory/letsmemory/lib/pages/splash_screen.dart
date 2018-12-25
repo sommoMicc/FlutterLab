@@ -2,9 +2,16 @@ import 'package:flutter/material.dart';
 import './../UI/theme.dart';
 import './../UI/logo.dart';
 
+import './home_page.dart';
+import 'dart:async';
+
 class SplashscreenPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+  Timer(Duration(milliseconds: 1500), () => 
+    Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext)=>LetsMemoryHomePage()))
+  );
+
     // TODO: implement build
     return Material(
       color: LetsMemoryColors.primary,
