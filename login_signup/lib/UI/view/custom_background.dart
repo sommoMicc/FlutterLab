@@ -23,7 +23,7 @@ class CustomBackground extends StatelessWidget {
             shadow: false,
             text: model.text,
             backgroundColor: model.background,
-            textColor: Color(0x11ffffff),
+            textColor: Color(0x33ffffff),
             rotation: Matrix4.rotationZ(model.rotation),
           ),
           top: model.x * s.sizes[0] - s.cardSide * 0.5,

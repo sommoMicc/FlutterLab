@@ -32,11 +32,19 @@ class CustomTextField extends StatelessWidget {
         ),
         fillColor: CustomAppColors.background,
         filled: true,
-        border: OutlineInputBorder(
+        focusedBorder: OutlineInputBorder(
           borderSide: BorderSide(
-            color: CustomAppColors.border
+            width: 1,
+            color: _Style.focusedBorder
           ),
           borderRadius:BorderRadius.circular(s.radius)
+        ),
+        enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(
+                width: 1,
+                color: _Style.enabledBorder
+            ),
+            borderRadius:BorderRadius.circular(s.radius)
         ),
         hintText: this.hint,
         hintStyle: TextStyle(color: CustomAppColors.secondaryFontColor)
@@ -52,5 +60,8 @@ class _Style {
   List<double> get padding => o == Orientation.portrait ?
       [30,10]:
       [35,15];
+
+  static Color focusedBorder = Colors.yellow;
+  static Color enabledBorder = Color(0xff777777);
 
 }
