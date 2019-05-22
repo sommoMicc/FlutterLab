@@ -1,10 +1,7 @@
 import 'package:flutter/cupertino.dart';
-import 'package:login_signup/UI/style.dart';
 import 'package:login_signup/model/pojo/background_card_model.dart';
-import 'package:provider/provider.dart';
 import 'dart:math' as math;
 
-import 'app_state.dart';
 
 class BackgroundState with ChangeNotifier {
   List<BackgroundCardModel> backgroundCards;
@@ -16,9 +13,9 @@ class BackgroundState with ChangeNotifier {
 
 
     var random = math.Random();
-    for(int i=0;i<70;i++) {
+    for(int i=0;i<60;i++) {
       Color c = Color((random.nextDouble() * 0xFFFFFF).toInt() << 0).withOpacity(
-          1.0);
+          0.9);
 
       double x = random.nextDouble();
       double y = random.nextDouble();

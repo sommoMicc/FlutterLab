@@ -20,7 +20,7 @@ class CustomAppDimensions {
     Measure.width : Measure.height;
   }
 
-  double get radius => scale(10,Measure.height);
+  double get radius => scale(12,Measure.height);
   double get hPadding => orientation == Orientation.portrait ?
     scale(15,Measure.height) : scale(40,Measure.width);
 
@@ -62,4 +62,5 @@ class CustomAppColors {
   static final Color secondaryFontColor = Color(0xffbbbbbb);
 
   static final Color border = Color(0xffffffff); //Grigetto
+  static final Color accent = Color(0xffff9d26); //Arancione
 }

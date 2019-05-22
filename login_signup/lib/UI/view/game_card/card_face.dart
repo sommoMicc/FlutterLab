@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:login_signup/model/state/app_state.dart';
 import 'package:provider/provider.dart';
+import 'package:tinycolor/tinycolor.dart';
 
 import '../../style.dart';
 
@@ -12,6 +13,8 @@ class CardFace extends StatelessWidget {
   final bool pressed, shadow;
   final Color backgroundColor, shadowColor;
 
+  final double size, fontSize;
+
   CardFace({
     this.backgroundColor,
     this.shadowColor,
@@ -19,18 +22,22 @@ class CardFace extends StatelessWidget {
     this.textColor = Colors.white,
     this.shadow = true,
     this.rotation,
-    this.pressed = false
+    this.pressed = false,
+    this.size = 0,
+    this.fontSize = 0
   });
 
   @override
   Widget build(BuildContext context) {
-    //Così posso fare un override semplice dei colori senza violare la regola
-    //che tutti i campi di uno StatelessWidget devono essere final
-    //L'espressione "a = b ?? c" equivale a "a = (b == null) ? c : b"
     Color background = this.backgroundColor ?? _Style.defaultBackgroundColor;
-    Color shadow = this.shadowColor ?? _Style.defaultShadowColor;
+
+    Color gradientStart = TinyColor(background).spin(-10).darken(15).color;
+    Color gradientEnd = TinyColor(background).lighten(30).color;
+
+    Color shadow = this.shadowColor ?? TinyColor(gradientEnd).setAlpha(100).color;
 
     final CustomAppDimensions d = Provider.of<AppState>(context).size;
+    //final _Style s = _Style(context);
 
     final List<BoxShadow> boxShadow = <BoxShadow> [
       BoxShadow(
@@ -41,26 +48,38 @@ class CardFace extends StatelessWidget {
       )
     ];
 
-
+    final double actualSize = (size != 0) ? size : d.cardSide;
     return Transform(
       alignment: FractionalOffset.center, // set transform origin
       transform: this.rotation == null ? Matrix4.identity() : this.rotation,
       child: Container(
-        constraints: new BoxConstraints(
-          minHeight: d.cardSide,
-          minWidth: d.cardSide,
+        constraints: BoxConstraints(
+          minHeight: actualSize,
+          minWidth: actualSize,
+          maxHeight: actualSize,
+          maxWidth: actualSize
         ),
         decoration: BoxDecoration(
-          color: this.pressed ?
-            shadow : background,
           borderRadius: BorderRadius.circular(d.radius),
-          boxShadow: this.shadow ? boxShadow : []
+          boxShadow: this.shadow ? boxShadow : [],
+          gradient: LinearGradient(
+            // Where the linear gradient begins and ends
+            begin: Alignment.bottomCenter,
+            end: Alignment.topCenter,
+            // Add one stop for each color. Stops should increase from 0 to 1
+            stops: [0.1, 0.5, 0.9],
+            colors: [
+              this.pressed ? shadow : gradientStart,
+              this.pressed ? shadow : background,
+              this.pressed ? shadow : gradientEnd
+            ],
+          ),
           //border: Border.all(color: this.textColor, width: LetsMemoryDimensions.cardBorder)
         ),
         child: Center(
           child: Text(this.text,
             style: TextStyle(
-              fontSize: d.cardFont,
+              fontSize: fontSize != 0 ? fontSize : d.cardFont,
               fontWeight: FontWeight.bold,
               color: this.textColor
             )
@@ -72,6 +91,10 @@ class CardFace extends StatelessWidget {
 }
 
 class _Style {
+  double cardSide;
+  _Style(BuildContext context) {
+    cardSide = MediaQuery.of(context).size.width / 4 - 10;
+  }
   static final Color defaultBackgroundColor = Color(0xffffffff);
   static final Color defaultShadowColor = Color(0xffbbbbbb);
 

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:login_signup/UI/pages/homepage.dart';
+import 'package:login_signup/UI/pages/home.dart';
+import 'package:login_signup/UI/pages/login.dart';
 import 'package:login_signup/model/state/app_state.dart';
 import 'package:login_signup/model/state/background_state.dart';
 import 'package:provider/provider.dart';

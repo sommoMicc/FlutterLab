@@ -61,7 +61,7 @@ class _Style {
       [30,10]:
       [35,15];
 
-  static Color focusedBorder = Colors.yellow;
+  static Color focusedBorder = CustomAppColors.accent;
   static Color enabledBorder = Color(0xff777777);
 
 }
